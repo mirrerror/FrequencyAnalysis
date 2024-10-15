@@ -139,7 +139,10 @@ public class FrequencyAnalysisTool extends JFrame {
             StringBuilder output = new StringBuilder("Character Frequencies (%):\n");
             int totalLetters = frequencyMap.values().stream().mapToInt(Integer::intValue).sum();
 
-            for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
+            List<Map.Entry<Character, Integer>> sortedFrequencies = new ArrayList<>(frequencyMap.entrySet());
+            sortedFrequencies.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+            for (Map.Entry<Character, Integer> entry : sortedFrequencies) {
                 double percentage = (entry.getValue() / (double) totalLetters) * 100;
                 output.append(entry.getKey()).append(": ").append(String.format("%.2f", percentage)).append("%\n");
             }
